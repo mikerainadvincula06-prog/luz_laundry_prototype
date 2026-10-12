@@ -12,7 +12,7 @@ let toastTimer;
 
 const seedOrders = [
   {
-    id: "LL-1001",
+    id: "001",
     name: "Ana Santos",
     phone: "09171234567",
     type: "Regular clothes",
@@ -22,10 +22,10 @@ const seedOrders = [
     total: 120,
     paid: 120,
     method: "Cash",
-    created: new Date(Date.now() - 86400000 * 1).toISOString(),
+    created: new Date(Date.now() - 86400000).toISOString()
   },
   {
-    id: "LL-1002",
+    id: "002",
     name: "Juan Dela Cruz",
     phone: "09981234567",
     type: "Comforter",
@@ -35,10 +35,10 @@ const seedOrders = [
     total: 180,
     paid: 100,
     method: "GCash",
-    created: new Date(Date.now() - 86400000 * 2).toISOString(),
+    created: new Date(Date.now() - 86400000 * 2).toISOString()
   },
   {
-    id: "LL-1003",
+    id: "003",
     name: "Maria Lopez",
     phone: "09182345678",
     type: "Blanket",
@@ -48,10 +48,10 @@ const seedOrders = [
     total: 150,
     paid: 0,
     method: "Cash",
-    created: new Date(Date.now() - 86400000 * 2).toISOString(),
+    created: new Date(Date.now() - 86400000 * 2).toISOString()
   },
   {
-    id: "LL-1004",
+    id: "004",
     name: "Reynaldo Reyes",
     phone: "09273456789",
     type: "Regular clothes",
@@ -61,10 +61,10 @@ const seedOrders = [
     total: 144,
     paid: 144,
     method: "Cash",
-    created: new Date(Date.now() - 86400000 * 3).toISOString(),
+    created: new Date(Date.now() - 86400000 * 3).toISOString()
   },
   {
-    id: "LL-1005",
+    id: "005",
     name: "Carla Santos",
     phone: "09993456789",
     type: "Mixed laundry",
@@ -74,10 +74,9 @@ const seedOrders = [
     total: 160,
     paid: 0,
     method: "GCash",
-    created: new Date(Date.now() - 86400000 * 4).toISOString(),
-  },
+    created: new Date(Date.now() - 86400000 * 4).toISOString()
+  }
 ];
-
 function loadOrders() {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
@@ -141,14 +140,32 @@ function showToast(message, isError = false) {
 function getOrder(id) {
   return orders.find((o) => o.id === id);
 }
+
+
 function nextOrderId() {
-  let max = 1000;
-  orders.forEach((o) => {
-    const n = Number(String(o.id).replace(/\D/g, ""));
-    if (n > max) max = n;
+  if (orders.length >= 100) {
+    alert("Maximum of 100 orders reached!");
+    return null;
+  }
+
+  let max = 0;
+
+  orders.forEach((order) => {
+    const number = parseInt(order.id.replace(/\D/g, ""), 10) || 0;
+    if (number > max) {
+      max = number;
+    }
   });
-  return "LL-" + (max + 1);
+
+  if (max >= 100) {
+    alert("Maximum order number 100 reached!");
+    return null;
+  }
+
+  return String(max + 1).padStart(3, "0");
 }
+
+
 function isLoggedIn() {
   return sessionStorage.getItem("luzLaundryStaffLoggedIn") === "yes";
 }
@@ -220,31 +237,42 @@ document.getElementById("orderForm").addEventListener("submit", (e) => {
   const name = document.getElementById("customerName").value.trim();
   const phone = document.getElementById("phone").value.trim();
   const type = document.getElementById("laundryType").value;
-  const weight = Number(document.getElementById("weight").value);
-  if (!name || !phone || !type || !Number.isFinite(weight) || weight <= 0) {
-    showToast("Please complete all required fields correctly.", true);
-    return;
-  }
-  const rate = type === "Comforter" ? 60 : type === "Blanket" ? 60 : 30;
-  const order = {
-    id: nextOrderId(),
-    name,
-    phone,
-    type,
-    weight,
-    notes: document.getElementById("specialRequest").value.trim(),
-    status: "Received",
-    total: Math.round(weight * rate * 100) / 100,
-    paid: 0,
-    method: "Not recorded",
-    created: new Date().toISOString(),
-  };
-  orders.unshift(order);
-  saveOrders();
-  form.reset();
-  renderDashboard();
-  navigate("orders");
-  showToast(`Order ${order.id} was saved successfully.`);
+  
+const weight = Number(document.getElementById("weight").value);
+
+if (!name || !phone || !type || !Number.isFinite(weight) || weight <= 0) {
+  showToast("Please complete all required fields correctly.", true);
+  return;
+}
+
+const rate = type === "Comforter" ? 60 : type === "Blanket" ? 60 : 30;
+
+const newId = nextOrderId();
+
+if (newId === null) {
+  return;
+}
+
+const order = {
+  id: newId,
+  name,
+  phone,
+  type,
+  weight,
+  notes: document.getElementById("specialRequest").value.trim(),
+  status: "Received",
+  total: Math.round(weight * rate * 100) / 100,
+  paid: 0,
+  method: "Not recorded",
+  created: new Date().toISOString(),
+};
+
+orders.unshift(order);
+saveOrders();
+form.reset();
+renderDashboard();
+navigate("orders");
+showToast(`Order ${order.id} was saved successfully.`);
 });
 
 function renderDashboard() {
@@ -352,6 +380,23 @@ document.addEventListener("click", (e) => {
     }
   }
 });
+
+function removeOrder(id) {
+  const order = getOrder(id);
+
+  if (!order) return;
+
+  if (confirm("Are you sure you want to remove order " + id + "?")) {
+    orders = orders.filter((o) => o.id !== id);
+    saveOrders();
+    renderOrders();
+    renderDashboard();
+    renderPayments();
+    renderCustomers();
+    populatePaymentOrders();
+    showToast("Order " + id + " removed successfully.");
+  }
+}
 
 function renderOrderDetail(id) {
   const o = getOrder(id);
