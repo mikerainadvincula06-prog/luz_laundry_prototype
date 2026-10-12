@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#17324d">
+  <title>Luz Laundry | Order Tracking & Records</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <header class="topbar">
+    <button class="brand" type="button" data-page="home" aria-label="Go to home">
+      <span class="brand-mark">LL</span>
+      <span><strong>Luz Laundry</strong><small>Order tracking & records</small></span>
+    </button>
+    <nav class="top-actions" aria-label="Main navigation">
+      <button class="nav-link" data-page="home">Home</button>
+      <button class="nav-link" data-page="tracking">Track order</button>
+      <button class="button button-small" data-page="login" id="loginNav">Staff login</button>
+      <button class="button button-small hidden" id="logoutBtn">Log out</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="page-home" class="page hero-page">
+      <div class="hero-copy">
+        <span class="eyebrow">A simpler laundry day</span>
+        <h1>Keep every laundry order <span>on track.</span></h1>
+        <p class="hero-text">A simple way for Luz Laundry Shop staff to record orders, manage payments, and update laundry status. Customers can check progress using their order number.</p>
+        <div class="hero-actions">
+          <button class="button" data-page="login">Staff login <span aria-hidden="true">→</span></button>
+          <button class="button button-secondary" data-page="tracking">Track an order</button>
+        </div>
+        <div class="trust-row"><span class="trust-dot"></span> Clear records · Simple tracking · Helpful updates</div>
+      </div>
+      <div class="hero-card">
+        <div class="card-topline"><span class="status-pill status-ready">Order progress</span><span class="muted">Sample view</span></div>
+        <h2>Your laundry, step by step</h2>
+        <p class="muted">Example order LL-1001</p>
+        <div class="progress-list">
+          <div class="progress-step complete"><span>✓</span><div><strong>Received</strong><small>Order recorded</small></div></div>
+          <div class="progress-step active"><span>2</span><div><strong>Washing</strong><small>Currently in progress</small></div></div>
+          <div class="progress-step"><span>3</span><div><strong>Drying</strong><small>Next step</small></div></div>
+          <div class="progress-step"><span>4</span><div><strong>Folding</strong><small>Prepare for pickup</small></div></div>
+          <div class="progress-step"><span>5</span><div><strong>Ready for pickup</strong><small>Collect your laundry</small></div></div>
+        </div>
+        <button class="text-button" data-page="tracking">Check your order <span aria-hidden="true">→</span></button>
+      </div>
+    </section>
+
+    <section id="page-login" class="page narrow-page hidden">
+      <div class="panel login-panel">
+        <div class="center-heading"><span class="brand-mark large">LL</span><span class="eyebrow">Staff access</span><h1>Welcome back</h1><p class="muted">Sign in to manage laundry orders and records.</p></div>
+        <form id="loginForm" class="form-stack">
+          <label for="username">Username</label>
+          <input id="username" name="username" autocomplete="username" placeholder="Enter username" required>
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter password" required>
+          <p class="form-hint">Demo login: <strong>staff</strong> / <strong>laundry123</strong></p>
+          <p id="loginError" class="error-text hidden" role="alert">Username or password is incorrect.</p>
+          <button class="button full-width" type="submit">Sign in</button>
+        </form>
+        <button class="text-button centered" data-page="home">← Back to home</button>
+      </div>
+    </section>
+
+    <section id="page-dashboard" class="page app-page hidden">
+      <aside class="sidebar">
+        <div class="sidebar-label">WORKSPACE</div>
+        <button class="side-link active" data-page="dashboard"><span>▦</span> Dashboard</button>
+        <button class="side-link" data-page="new-order"><span>＋</span> New order</button>
+        <button class="side-link" data-page="orders"><span>☷</span> Orders</button>
+        <button class="side-link" data-page="payments"><span>₱</span> Payments</button>
+        <button class="side-link" data-page="customers"><span>♙</span> Customers</button>
+        <div class="sidebar-note"><strong>Need help?</strong><p>Use the menu to record an order or update its status.</p></div>
+      </aside>
+      <div class="app-content">
+        <div class="page-heading"><div><span class="eyebrow">OVERVIEW</span><h1>Dashboard</h1><p class="muted">Here is the current summary of laundry orders.</p></div><button class="button" data-page="new-order">＋ New order</button></div>
+        <div class="stats-grid">
+          <article class="stat-card"><span class="stat-icon blue">☷</span><span class="stat-label">Total orders</span><strong id="statTotal">0</strong><small>All recorded orders</small></article>
+          <article class="stat-card"><span class="stat-icon teal">✓</span><span class="stat-label">Ready for pickup</span><strong id="statReady">0</strong><small>Waiting for customers</small></article>
+          <article class="stat-card"><span class="stat-icon amber">!</span><span class="stat-label">Unclaimed</span><strong id="statUnclaimed">0</strong><small>Ready, not yet claimed</small></article>
+          <article class="stat-card"><span class="stat-icon violet">₱</span><span class="stat-label">Payments recorded</span><strong id="statIncome">₱0.00</strong><small>Total amount paid</small></article>
+        </div>
+        <div class="panel">
+          <div class="panel-heading"><div><h2>Recent orders</h2><p class="muted">Latest records added to the system.</p></div><button class="text-button" data-page="orders">View all orders →</button></div>
+          <div class="table-wrap"><table><thead><tr><th>Order no.</th><th>Customer</th><th>Laundry type</th><th>Status</th><th>Amount</th><th></th></tr></thead><tbody id="recentOrders"></tbody></table></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-new-order" class="page app-page hidden">
+      <aside class="sidebar">
+        <div class="sidebar-label">WORKSPACE</div>
+        <button class="side-link" data-page="dashboard"><span>▦</span> Dashboard</button>
+        <button class="side-link active" data-page="new-order"><span>＋</span> New order</button>
+        <button class="side-link" data-page="orders"><span>☷</span> Orders</button>
+        <button class="side-link" data-page="payments"><span>₱</span> Payments</button>
+        <button class="side-link" data-page="customers"><span>♙</span> Customers</button>
+        <div class="sidebar-note"><strong>Order tip</strong><p>Check the customer's name, phone number, and weight before saving.</p></div>
+      </aside>
+      <div class="app-content">
+        <div class="page-heading"><div><span class="eyebrow">ORDER MANAGEMENT</span><h1>New laundry order</h1><p class="muted">Enter the details to create a new order record.</p></div><button class="button button-secondary" data-page="orders">View orders</button></div>
+        <div class="panel form-panel">
+          <form id="orderForm">
+            <div class="form-section-title"><span class="section-number">1</span><div><h2>Customer details</h2><p class="muted">Contact information for this order.</p></div></div>
+            <div class="form-grid">
+              <div class="field"><label for="customerName">Customer name <span class="required">*</span></label><input id="customerName" name="customerName" placeholder="e.g. Ana Santos" required maxlength="80"></div>
+              <div class="field"><label for="phone">Phone number <span class="required">*</span></label><input id="phone" name="phone" type="tel" placeholder="e.g. 09XXXXXXXXX" required maxlength="20"></div>
+            </div>
+            <div class="form-section-title"><span class="section-number">2</span><div><h2>Laundry details</h2><p class="muted">Record the type and weight of laundry.</p></div></div>
+            <div class="form-grid">
+              <div class="field"><label for="laundryType">Laundry type <span class="required">*</span></label><select id="laundryType" name="laundryType" required><option value="">Choose a type</option><option>Regular clothes</option><option>Comforter</option><option>Blanket</option><option>Mixed laundry</option></select></div>
+              <div class="field"><label for="weight">Weight (kg) <span class="required">*</span></label><input id="weight" name="weight" type="number" min="0.1" max="100" step="0.1" placeholder="e.g. 5.5" required><small class="field-help">Enter a value greater than 0 kg.</small></div>
+              <div class="field field-full"><label for="specialRequest">Special requests <span class="optional">(optional)</span></label><textarea id="specialRequest" name="specialRequest" rows="3" placeholder="Any notes for the laundry staff?"></textarea></div>
+            </div>
+            <div class="form-actions"><button class="button" type="submit">Save order</button><button class="button button-secondary" type="reset">Clear form</button><button class="text-button" type="button" data-page="dashboard">Cancel</button></div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-orders" class="page app-page hidden">
+      <aside class="sidebar">
+        <div class="sidebar-label">WORKSPACE</div>
+        <button class="side-link" data-page="dashboard"><span>▦</span> Dashboard</button><button class="side-link" data-page="new-order"><span>＋</span> New order</button><button class="side-link active" data-page="orders"><span>☷</span> Orders</button><button class="side-link" data-page="payments"><span>₱</span> Payments</button><button class="side-link" data-page="customers"><span>♙</span> Customers</button>
+        <div class="sidebar-note"><strong>Find an order</strong><p>Search by order number or customer name.</p></div>
+      </aside>
+      <div class="app-content">
+        <div class="page-heading"><div><span class="eyebrow">ORDER MANAGEMENT</span><h1>Laundry orders</h1><p class="muted">Search, review, and manage customer orders.</p></div><button class="button" data-page="new-order">＋ New order</button></div>
+        <div class="panel">
+          <div class="toolbar"><div class="search-box"><span aria-hidden="true">⌕</span><input id="orderSearch" placeholder="Search order no. or customer..." aria-label="Search orders"></div><select id="statusFilter" aria-label="Filter by status"><option value="">All statuses</option><option>Received</option><option>Washing</option><option>Drying</option><option>Folding</option><option>Ready</option><option>Claimed</option></select></div>
+          <div class="table-wrap"><table><thead><tr><th>Order no.</th><th>Customer</th><th>Type / weight</th><th>Status</th><th>Total</th><th>Actions</th></tr></thead><tbody id="ordersTable"></tbody></table></div>
+          <p class="table-foot" id="ordersCount"></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-payments" class="page app-page hidden">
+      <aside class="sidebar">
+        <div class="sidebar-label">WORKSPACE</div><button class="side-link" data-page="dashboard"><span>▦</span> Dashboard</button><button class="side-link" data-page="new-order"><span>＋</span> New order</button><button class="side-link" data-page="orders"><span>☷</span> Orders</button><button class="side-link active" data-page="payments"><span>₱</span> Payments</button><button class="side-link" data-page="customers"><span>♙</span> Customers</button>
+      </aside>
+      <div class="app-content">
+        <div class="page-heading"><div><span class="eyebrow">RECORD MANAGEMENT</span><h1>Record a payment</h1><p class="muted">Save a payment against an existing laundry order.</p></div></div>
+        <div class="panel form-panel">
+          <form id="paymentForm">
+            <div class="field"><label for="paymentOrder">Order number <span class="required">*</span></label><select id="paymentOrder" required><option value="">Choose an order</option></select></div>
+            <div id="paymentOrderInfo" class="info-box hidden"></div>
+            <div class="form-grid">
+              <div class="field"><label for="paymentAmount">Amount paid (₱) <span class="required">*</span></label><input id="paymentAmount" type="number" min="0.01" step="0.01" placeholder="e.g. 120.00" required></div>
+              <div class="field"><label for="paymentMethod">Payment method <span class="required">*</span></label><select id="paymentMethod" required><option>Cash</option><option>GCash</option><option>Bank transfer</option><option>Other</option></select></div>
+            </div>
+            <div class="form-actions"><button class="button" type="submit">Save payment</button><button class="button button-secondary" type="button" data-page="orders">Cancel</button></div>
+          </form>
+        </div>
+        <div class="panel"><div class="panel-heading"><div><h2>Payment records</h2><p class="muted">Recorded payments for all orders.</p></div></div><div class="table-wrap"><table><thead><tr><th>Order no.</th><th>Customer</th><th>Method</th><th>Amount paid</th><th>Date</th></tr></thead><tbody id="paymentsTable"></tbody></table></div></div>
+      </div>
+    </section>
+
+    <section id="page-customers" class="page app-page hidden">
+      <aside class="sidebar">
+        <div class="sidebar-label">WORKSPACE</div><button class="side-link" data-page="dashboard"><span>▦</span> Dashboard</button><button class="side-link" data-page="new-order"><span>＋</span> New order</button><button class="side-link" data-page="orders"><span>☷</span> Orders</button><button class="side-link" data-page="payments"><span>₱</span> Payments</button><button class="side-link active" data-page="customers"><span>♙</span> Customers</button>
+      </aside>
+      <div class="app-content">
+        <div class="page-heading"><div><span class="eyebrow">RECORD MANAGEMENT</span><h1>Customers</h1><p class="muted">Customer list and service history based on recorded orders.</p></div><button class="button" data-page="new-order">＋ Add order</button></div>
+        <div class="panel"><div class="toolbar"><div class="search-box"><span aria-hidden="true">⌕</span><input id="customerSearch" placeholder="Search customer name..." aria-label="Search customers"></div></div><div class="table-wrap"><table><thead><tr><th>Customer</th><th>Phone number</th><th>Total orders</th><th>Latest order</th><th></th></tr></thead><tbody id="customersTable"></tbody></table></div></div>
+      </div>
+    </section>
+
+    <section id="page-tracking" class="page narrow-page hidden">
+      <div class="tracking-intro"><span class="eyebrow">CUSTOMER ORDER TRACKING</span><h1>Where is your laundry?</h1><p class="muted">Enter the order number shown on your receipt to check its latest status.</p></div>
+      <div class="panel tracking-panel">
+        <form id="trackingForm" class="tracking-form"><div class="field"><label for="trackNumber">Order number</label><input id="trackNumber" placeholder="e.g. LL-1001" required></div><button class="button" type="submit">Track order</button></form>
+        <p id="trackingError" class="error-text hidden" role="alert">We couldn't find that order. Check the order number and try again.</p>
+        <div id="trackingResult" class="hidden"></div>
+      </div>
+      <button class="text-button centered" data-page="home">← Back to home</button>
+    </section>
+
+    <section id="page-order-detail" class="page narrow-page hidden">
+      <div class="page-heading"><div><span class="eyebrow">ORDER DETAILS</span><h1>Order information</h1><p class="muted">Review the order and choose an action.</p></div><button class="button button-secondary" data-page="orders">← Back to orders</button></div>
+      <div id="orderDetailContent" class="panel"></div>
+    </section>
+  </main>
+
+  <footer class="footer"><span>© <span id="year"></span> Luz Laundry Shop</span><span>Order Tracking & Record Management System · Prototype</span></footer>
+  <script src="script.js"></script>
+</body>
+</html>
