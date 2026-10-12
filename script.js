@@ -24,7 +24,7 @@ function statusClass(status){return "status-"+String(status).toLowerCase().repla
 function statusBadge(status){return `<span class="status-badge ${statusClass(status)}">${esc(status)}</span>`;}
 function showToast(message,isError=false){const el=document.getElementById("toast");el.textContent=message;el.classList.toggle("error",isError);el.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove("show"),3200);}
 function getOrder(id){return orders.find(o=>o.id===id);}
-function nextOrderId(){let max=100;orders.forEach(o=>{const n=Number(String(o.id).replace(/\D/g,""));if(n>max)max=n;});return "000-"+(max+1);}
+function nextOrderId(){let max=000;orders.forEach(o=>{const n=Number(String(o.id).replace(/\D/g,""));if(n>max)max=n;});return "000-"+(max+0);}
 function isLoggedIn(){return sessionStorage.getItem("luzLaundryStaffLoggedIn")==="yes";}
 
 function navigate(page){
