@@ -4,7 +4,7 @@ let currentPage = "home";
 let toastTimer;
 
 const seedOrders = [
-  {id:"001", name:"james lutter", phone:"09171734587", type:"Regular clothes", weight:5, notes:"Separate light-colored clothes", status:"Washing", total:120, paid:120, method:"Cash", created:new Date(Date.now()-86400000*1).toISOString()},
+  {id:"001", name:"james cutter", phone:"09171734587", type:"Regular clothes", weight:5, notes:"Separate light-colored clothes", status:"Washing", total:120, paid:120, method:"Cash", created:new Date(Date.now()-86400000*1).toISOString()},
   {id:"002", name:"Juan Cruz", phone:"09975372367", type:"Comforter", weight:3, notes:"", status:"Drying", total:180, paid:100, method:"GCash", created:new Date(Date.now()-86400000*2).toISOString()},
   {id:"003", name:"Maria lee", phone:"09182345678", type:"Blanket", weight:2.5, notes:"", status:"Folding", total:150, paid:0, method:"Cash", created:new Date(Date.now()-86400000*2).toISOString()},
   {id:"004", name:"Reynaldo Reyes", phone:"09273456789", type:"Regular clothes", weight:6, notes:"", status:"Ready", total:144, paid:144, method:"Cash", created:new Date(Date.now()-86400000*3).toISOString()},
