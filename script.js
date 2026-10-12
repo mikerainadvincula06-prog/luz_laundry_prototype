@@ -13,7 +13,7 @@ let toastTimer;
 const seedOrders = [
   {
     id: "001",
-    name: "Ana Santos",
+    name: "Andoy",
     phone: "09171234567",
     type: "Regular clothes",
     weight: 5,
@@ -26,7 +26,7 @@ const seedOrders = [
   },
   {
     id: "002",
-    name: "Juan Dela Cruz",
+    name: "Juan",
     phone: "09981234567",
     type: "Comforter",
     weight: 3,
@@ -39,7 +39,7 @@ const seedOrders = [
   },
   {
     id: "003",
-    name: "Maria Lopez",
+    name: "Maria",
     phone: "09182345678",
     type: "Blanket",
     weight: 2.5,
@@ -52,7 +52,7 @@ const seedOrders = [
   },
   {
     id: "004",
-    name: "Reynaldo Reyes",
+    name: "Reynaldo",
     phone: "09273456789",
     type: "Regular clothes",
     weight: 6,
@@ -65,7 +65,7 @@ const seedOrders = [
   },
   {
     id: "005",
-    name: "Carla Santos",
+    name: "Carlo",
     phone: "09993456789",
     type: "Mixed laundry",
     weight: 4,
