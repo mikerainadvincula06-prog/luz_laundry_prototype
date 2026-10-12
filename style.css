@@ -4,3 +4,17 @@
 @media(max-width:1050px){.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.app-page{grid-template-columns:190px minmax(0,1fr)}.sidebar{padding:22px 10px}.app-content{padding:25px 20px 40px}.hero-page{gap:35px}}
 @media(max-width:720px){.topbar{height:auto;min-height:70px;padding:13px 16px;flex-wrap:wrap}.top-actions{gap:13px}.nav-link{font-size:12px}.brand strong{font-size:14px}.brand small{font-size:10px}.brand-mark{width:37px;height:37px}.hero-page{grid-template-columns:1fr;padding:48px 20px;gap:35px}.hero-copy h1{font-size:40px}.hero-card{max-width:100%}.app-page{display:block}.sidebar{border-right:0;border-bottom:1px solid var(--line);padding:10px;display:flex;flex-direction:row;overflow-x:auto;gap:5px}.sidebar-label,.sidebar-note{display:none}.side-link{flex:0 0 auto;padding:10px;font-size:12px;gap:7px}.side-link span{font-size:15px;width:auto}.app-content{padding:24px 14px 35px}.page-heading{align-items:flex-start;flex-direction:column}.page-heading h1{font-size:27px}.page-heading>.button{align-self:flex-start}.stats-grid{gap:10px}.stat-card{padding:14px}.stat-card strong{font-size:23px}.stat-icon{margin-bottom:10px}.panel{padding:17px}.panel-heading{align-items:flex-start}.panel-heading .text-button{font-size:12px}.form-grid{grid-template-columns:1fr}.field-full{grid-column:auto}.toolbar{align-items:stretch;flex-direction:column}.toolbar select{width:100%}.tracking-form{align-items:stretch;flex-direction:column}.tracking-form .button{width:100%}.tracking-intro h1{font-size:30px}.tracking-progress{margin:23px -5px 12px}.track-step strong{font-size:9px}.track-step small{font-size:8px}.detail-grid{grid-template-columns:1fr 1fr}.footer{flex-direction:column;gap:4px}.login-panel{padding:26px 21px}}
 @media(max-width:390px){.top-actions{gap:9px}.nav-link{font-size:11px}.button-small{padding:8px 10px}.stats-grid{grid-template-columns:1fr 1fr}.tracking-progress{grid-template-columns:repeat(5,1fr)}.track-step strong{font-size:8px}.track-step small{display:none}.detail-grid{grid-template-columns:1fr}}
+.brand-logo {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+  display: block;
+  flex-shrink: 0;
+  border-radius: 8px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
