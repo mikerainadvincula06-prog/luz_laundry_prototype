@@ -1,4 +1,4 @@
-# Luz Laundry — Coded HCI Prototype
+# Luz Laundry — high fidelity HCI Prototype
 
 A responsive HTML/CSS/JavaScript prototype for the **Luz Laundry Order Tracking and Record Management System**. It is designed for the ITEC 80 HCI laboratory activity and runs without a build tool or backend.
 
@@ -13,32 +13,6 @@ A responsive HTML/CSS/JavaScript prototype for the **Luz Laundry Order Tracking 
 8. Customer order tracking
 9. Order details and status update
 
-## Run locally
-- Download or extract the project folder.
-- Open `index.html` in a browser, or open the folder in Acode and preview `index.html`.
-- No npm installation or build command is needed.
-
-## Demo login
-- Username: `staff`
-- Password: `laundry123`
-
-This is a classroom prototype. It is **not a secure production login** because the credentials are checked in front-end JavaScript. Orders are saved in the browser's `localStorage`, so data is local to that browser/device and is not shared between customers or staff devices.
-
-## Put it on GitHub using a phone
-1. Sign in to GitHub and create a new **public repository**, for example `luz-laundry-prototype`.
-2. Open the repository and choose **Add file → Upload files**.
-3. Upload `index.html`, `style.css`, `script.js`, and `README.md` from this folder. If the phone file picker does not let you select files from a ZIP, extract the ZIP first.
-4. Commit the files to the `main` branch.
-5. Confirm that `index.html`, `style.css`, and `script.js` appear at the repository root.
-
-## Deploy to Vercel
-1. Sign in to Vercel with GitHub.
-2. Choose **Add New → Project** and import `luz-laundry-prototype`.
-3. Framework preset: **Other**.
-4. Build command: leave blank.
-5. Output directory: leave blank or use `.` if Vercel asks for one.
-6. Click **Deploy**. Vercel will provide a live URL.
-7. Whenever you commit code changes to the connected `main` branch, Vercel can redeploy it.
 
 ## HCI principles demonstrated
 - **Consistency:** shared colors, typography, labels, buttons, badges, and navigation.
