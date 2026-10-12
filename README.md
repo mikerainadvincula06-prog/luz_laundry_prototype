@@ -23,14 +23,6 @@ A responsive HTML/CSS/JavaScript prototype for the **Luz Laundry Order Tracking 
 - **Clear navigation:** home, staff dashboard sidebar, order detail, and customer tracking flow.
 - **Visual hierarchy:** headings, summary cards, form sections, spacing, and emphasized primary buttons.
 
-## Meaningful task to demonstrate
-1. Open the site and click **Staff login**.
-2. Log in with the demo credentials.
-3. Click **New order**, enter customer information, choose a laundry type, enter weight, and save.
-4. Open **Orders** and click **View details** for the new order.
-5. Update the laundry status and save it.
-6. Click **Customer tracking view** and check the order progress.
-7. Optionally record a payment using **Record payment**.
 
 ## Usability testing: issues and improvements
 | Usability issue found or anticipated | Improvement in this prototype |
